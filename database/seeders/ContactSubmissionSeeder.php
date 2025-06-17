@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ContactSubmission;
 use Illuminate\Database\Seeder;
 
 class ContactSubmissionSeeder extends Seeder
@@ -12,6 +12,7 @@ class ContactSubmissionSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        ContactSubmission::factory()->count(20)->create();
+        ContactSubmission::factory()->count(5)->read()->create();
     }
 }

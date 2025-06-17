@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\CartItem;
-use App\Models\User;    // Make sure to import User model
-use App\Models\Product; // Make sure to import Product model
+use App\Models\Wishlist;
+use App\Models\User;    // Make sure User model exists
+use App\Models\Product; // Make sure Product model exists
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CartItemFactory extends Factory
+class WishlistFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = CartItem::class;
+    protected $model = Wishlist::class;
 
     /**
      * Define the model's default state.
@@ -23,14 +23,13 @@ class CartItemFactory extends Factory
      */
     public function definition(): array
     {
-        // Ensure there are existing users and products to link cart items to
+        // Ensure there are existing users and products
         $userId = User::inRandomOrder()->first()->id ?? User::factory();
         $productId = Product::inRandomOrder()->first()->id ?? Product::factory();
 
         return [
             'user_id' => $userId,
             'product_id' => $productId,
-            'quantity' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

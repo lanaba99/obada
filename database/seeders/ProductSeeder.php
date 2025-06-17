@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder
@@ -12,6 +13,12 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        if (Category::count() === 0) {
+            $this->call(CategorySeeder::class);
+        }
+
+        Product::factory()->count(50)->create();
+        Product::factory()->count(10)->featured()->create();
+        Product::factory()->count(5)->outOfStock()->create();
     }
 }
