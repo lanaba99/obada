@@ -14,14 +14,24 @@ class OrderItemSeeder extends Seeder
      */
     public function run(): void
     {
-        if (Order::count() === 0) {
-            $this->call(OrderSeeder::class);
-        }
-        if (Product::count() === 0) {
-            $this->call(ProductSeeder::class);
-        }
+        // Clear existing order items
+        // OrderItem::truncate(); // Uncomment if needed
 
-        // Create 50 additional order items randomly associated with existing orders
-        OrderItem::factory()->count(50)->create();
+        // Note: The main OrderSeeder now creates order items as part of order creation.
+        // This seeder would only be used if you need to add *additional* items to existing orders,
+        // or if you are not calling OrderSeeder for some reason.
+
+        // Example of adding one more item to a known order (if it exists)
+        $order = Order::where('status', 'processing')->first(); // Get an existing processing order
+        $product = Product::where('name', 'Pearl Bridal Earrings')->first(); // A specific product
+
+        if ($order && $product) {
+            OrderItem::create([
+                'order_id' => $order->id,
+                'product_id' => $product->id,
+                'quantity' => 1,
+                'price' => $product->price,
+            ]);
+        }
     }
 }

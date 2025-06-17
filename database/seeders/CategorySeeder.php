@@ -13,28 +13,28 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
+        // Clear existing categories
+        // Category::truncate(); // Uncomment if you want to clear only categories
+
         $categories = [
-            'Wedding Dresses',
-            'Bridesmaid Dresses',
-            'Wedding Veils',
-            'Bridal Shoes',
-            'Bridal Accessories',
-            'Groom Attire',
-            'Flower Girl Dresses',
-            'Mother of the Bride Dresses',
-            'Wedding Jewelry',
+            ['name' => 'Wedding Dresses', 'description' => 'Our exquisite collection of wedding gowns.'],
+            ['name' => 'Bridesmaid Dresses', 'description' => 'Stylish dresses for your bridal party.'],
+            ['name' => 'Wedding Veils', 'description' => 'Elegant veils to complete your bridal look.'],
+            ['name' => 'Bridal Shoes', 'description' => 'Comfortable and fashionable shoes for your big day.'],
+            ['name' => 'Bridal Accessories', 'description' => 'Jewelry, headpieces, and more.'],
+            ['name' => 'Groom Attire', 'description' => 'Suits and tuxedos for the groom and groomsmen.'],
+            ['name' => 'Flower Girl Dresses', 'description' => 'Adorable dresses for the youngest members of the bridal party.'],
+            ['name' => 'Mother of the Bride Dresses', 'description' => 'Sophisticated outfits for mothers.'],
+            ['name' => 'Wedding Jewelry', 'description' => 'Rings, necklaces, earrings for brides and guests.'],
+            ['name' => 'Honeymoon Outfits', 'description' => 'Stylish and comfortable wear for your honeymoon.'],
+            ['name' => 'Reception Dresses', 'description' => 'Change into something comfortable and chic for your reception.'],
         ];
 
-        foreach ($categories as $categoryName) {
+        foreach ($categories as $categoryData) {
             Category::firstOrCreate(
-                ['name' => $categoryName],
-                // Provide a fixed description or null, instead of using faker
-                ['slug' => Str::slug($categoryName), 'description' => 'Browse our exquisite collection of ' . $categoryName . '.']
+                ['name' => $categoryData['name']],
+                ['slug' => Str::slug($categoryData['name']), 'description' => $categoryData['description']]
             );
         }
-
-        // If you still want more random categories without Faker, you'd need to manually define more.
-        // For example:
-        // Category::firstOrCreate(['name' => 'Custom Category 1'], ['slug' => 'custom-category-1', 'description' => 'A custom unique category.']);
     }
 }

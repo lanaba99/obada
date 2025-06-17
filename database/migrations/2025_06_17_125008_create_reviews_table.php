@@ -17,7 +17,6 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->integer('rating')->unsigned()->default(0); // Rating from 1 to 5
             $table->text('comment')->nullable();
-            $table->timestamps();
 
             // Ensure a user can only review a product once
             $table->unique(['user_id', 'product_id']);
