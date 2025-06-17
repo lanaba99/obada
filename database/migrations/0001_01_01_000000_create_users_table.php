@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone_number')->nullable(); // Added for user profiles
+            $table->string('role')->default('customer'); // Added for user roles (e.g., 'customer', 'admin')
+            $table->boolean('is_approved')->default(true); // Added for user approval system
             $table->rememberToken();
             $table->timestamps();
         });

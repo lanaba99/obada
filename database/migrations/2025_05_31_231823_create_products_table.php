@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price', 8, 2);
+            $table->string('image_url')->nullable(); // Path to product image
+            $table->integer('stock')->default(0); // Quantity in stock
+            $table->boolean('is_featured')->default(false); // For featured products on homepage
             $table->timestamps();
         });
     }
