@@ -32,6 +32,7 @@ class Payment extends Model
      */
     protected $casts = [
         'amount' => 'decimal:2',
+        'details' => 'array', // Cast JSON details to an array
     ];
 
     /**

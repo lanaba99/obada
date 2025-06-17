@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -21,6 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone_number', // Added
+        'role',         // Added
+        'is_approved',  // Added
     ];
 
     /**
@@ -43,6 +45,47 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_approved' => 'boolean', // Cast is_approved to boolean
         ];
+    }
+
+    /**
+     * Get the addresses for the user.
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    /**
+     * Get the cart items for the user.
+     */
+    public function cartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
+
+    /**
+     * Get the orders for the user.
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Get the reviews written by the user.
+     */
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the wishlist items for the user.
+     */
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }
